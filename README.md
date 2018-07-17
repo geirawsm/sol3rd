@@ -11,7 +11,11 @@ This script scrapes the apps on the [3rd party list](https://solus-project.com/a
 
 ## Installation
 
-It can't get any more simple than `pip`:
+Before performing installation, it is recommended that you install dependencies through `eopkg` before installing sol3rd:
+
+`sudo eopkg it python-beautifulsoup4 python-html5lib python-colorama python-webencodings python-requests python-idna python-certifi python-six python-urllib3`
+
+Then install sol3rd with `pip`:
 
 `pip install sol3rd`
 
