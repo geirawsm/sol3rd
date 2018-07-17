@@ -138,7 +138,7 @@ def get_upgradeable():
             print_new('\n' + Fore.GREEN + 'Upgrading {}'.format(app_name) +
                       Style.RESET_ALL + '\nInstalled: {}\nAvailable: {}'
                       .format(installed_ver, available_ver))
-            do_upgrade = input('\nOK? (yes or no): ')
+            do_upgrade = str(input('\nOK? (yes or no): '))
             if do_upgrade == 'no' or do_upgrade == 'n':
                 print('')
                 if args.verbose:
@@ -183,9 +183,9 @@ def main():
                               .format(app_available))
                         continue
                     else:
-                        do_install = input('I found app \'{}\', is this the '
+                        do_install = str(input('I found app \'{}\', is this the '
                                            'one you want? '
-                                           .format(app_available))
+                                           .format(app_available)))
                         if do_install == 'no' or do_install == 'n':
                             print('')
                             if args.verbose:
