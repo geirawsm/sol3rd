@@ -1,6 +1,7 @@
 from setuptools import setup, find_packages
 from os import path
 from io import open
+from __version__ import version
 
 here = path.abspath(path.dirname(__file__))
 
@@ -8,10 +9,13 @@ here = path.abspath(path.dirname(__file__))
 with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
+# Get version number
+version = execfile('sol3rd/__version__.py')
 
 setup(
     name='sol3rd',
-    version='0.1',
+    #version='0.1',
+    version=
     description='Install 3rd party apps in Solus or upgrade them',
     long_description=long_description,
     long_description_content_type='text/markdown',

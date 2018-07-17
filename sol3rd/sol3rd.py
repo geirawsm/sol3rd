@@ -9,11 +9,14 @@ import os
 import sys
 import inspect
 from time import sleep
+from __version__ import version
 from colorama import init, Fore, Style
 init(autoreset=True)
 
+
 parser = argparse.ArgumentParser()
-parser.add_argument('-v', '--verbose', help='Increase output verbosity',
+parser.add_argument('-v', '--version', action='version', version='%(prog)s {}'.format(version))
+parser.add_argument('-V', '--verbose', help='Increase output verbosity',
                     action='store_true', default=False, dest='verbose')
 parser.add_argument('-t', '--test', help='Run the script in test mode',
                     action='store_true', default=False, dest='test')
