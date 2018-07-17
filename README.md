@@ -39,5 +39,6 @@ optional arguments:
 
 
 ## Dependencies:
+- python 3.x
 - colorgram
 - Pillow
