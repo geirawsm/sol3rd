@@ -39,5 +39,5 @@ optional arguments:
 
 
 ## Dependencies:
-- colorgram
-- Pillow
+- Beautiful Soup 4
+- Colorama
