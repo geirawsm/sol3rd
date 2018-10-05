@@ -40,5 +40,5 @@ optional arguments:
 
 ## Dependencies:
 - Python 3
-- Beautiful Soup
+- Beautiful Soup 4
 - Colorama
