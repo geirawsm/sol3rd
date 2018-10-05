@@ -22,8 +22,14 @@ parser.add_argument('-V', '--verbose',
                     help='Increase output verbosity',
                     action='store_true', default=False,
                     dest='verbose')
-parser.add_argument('-i', '--install', help='Install a package from 3rd party',
-                    action='store', default=False, dest='install')
+parser.add_argument('-la', '--list-available',
+                    help='List available 3rd party apps',
+                    action='store_true', default=False,
+                    dest='list_available')
+parser.add_argument('-li', '--list-installed',
+                    help='List installed 3rd party apps',
+                    action='store_true', default=False,
+                    dest='list_installed')
 parser.add_argument('-t', '--test',
                     help='Run the script in test mode',
                     action='store_true', default=False,
@@ -60,14 +66,23 @@ def get_available_apps():
                }
         print_new(_stop_text)
     else:
-        def get_version(link):
-            req = requests.get(link)
+        def get_version_and_summary(link):
+            try:
+                req = requests.get(link, timeout=5)
+            except(requests.exceptions.RequestException) as e:
+                print('Couldn\'t connect to solus-project.com:\n{}'.format(e))
+                sys.exit()
             soup = bs(req.content, 'html5lib', from_encoding="utf-8")
             version = soup.find('history').find('update').find('version').text
-            return version
+            summary = soup.find('summary').text
+            return {'version': version, 'summary': summary}
         out = {}
-        req = requests.get('https://solus-project.com/articles/software/'
-                           'third-party/en/')
+        try:
+            req = requests.get('https://solus-project.com/articles/software/'
+                               'third-party/en/', timeout=5)
+        except(requests.exceptions.RequestException) as e:
+            print('Couldn\'t connect to solus-project.com:\n{}'.format(e))
+            sys.exit()
         soup = bs(req.content, 'html5lib', from_encoding="utf-8")
         bs_page = soup.find('div', attrs={'data-solbit': 'blog-content'})
         apps = bs_page.find_all('pre')
@@ -84,9 +99,11 @@ def get_available_apps():
                 link = re.search(r'.*(https.*xml)', full_code).group(1)
                 app_name = re.search(r'https.*/([a-zA-Z0-9-]+)/.*xml',
                                      full_code).group(1)
-                version = get_version(link)
+                _version_and_summary = get_version_and_summary(link)
+                version = _version_and_summary['version']
+                summary = _version_and_summary['summary']
                 out[app_name] = {'link': link, 'version': version,
-                                 'full_code': full_code}
+                                 'summary': summary, 'full_code': full_code}
             i += 1
             print_new(' [ ] Getting available versions ({}/{}){}'
                       .format(i, len(apps) - 1, ' ' * 10))
@@ -233,12 +250,23 @@ def main():
         sys.exit()
 
 
-if not args.install and not args.upgrade:
+if not args.install and not args.upgrade and not args.list_available and not args.list_installed:
         parser.print_help(sys.stderr)
         sys.exit()
 
 apps_available = get_available_apps()
+# List the available 3rd party apps and exit
+if args.list_available:
+    for app in apps_available:
+        print(app)
+    sys.exit()
+
 apps_installed = get_installed_apps()
+# List the installed 3rd party apps and exit
+if args.list_installed:
+    for app in apps_installed:
+        print(app)
+    sys.exit()
 
 
 if __name__ == "__main__":
