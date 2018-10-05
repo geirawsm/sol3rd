@@ -78,8 +78,9 @@ def get_available_apps():
             return {'version': version, 'summary': summary}
         out = {}
         try:
-            req = requests.get('https://solus-project.com/articles/software/'
-                               'third-party/en/', timeout=5)
+
+            req = requests.get('https://getsol.us/articles/software/'
+                               'third-party/en', timeout=5)
         except(requests.exceptions.RequestException) as e:
             print('Couldn\'t connect to solus-project.com:\n{}'.format(e))
             sys.exit()
