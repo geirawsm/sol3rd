@@ -15,19 +15,34 @@ init(autoreset=True)
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-v', '--version', action='version', version='%(prog)s {}'.format(version))
-parser.add_argument('-V', '--verbose', help='Increase output verbosity',
-                    action='store_true', default=False, dest='verbose')
-parser.add_argument('-t', '--test', help='Run the script in test mode',
-                    action='store_true', default=False, dest='test')
-parser.add_argument('-u', '--upgrade', help='Upgrade installed 3rd party apps',
-                    action='store_true', default=False, dest='upgrade')
+parser.add_argument('-v', '--version',
+                    action='version',
+                    version='%(prog)s {}'.format(version))
+parser.add_argument('-V', '--verbose',
+                    help='Increase output verbosity',
+                    action='store_true', default=False,
+                    dest='verbose')
 parser.add_argument('-i', '--install', help='Install a package from 3rd party',
                     action='store', default=False, dest='install')
+parser.add_argument('-t', '--test',
+                    help='Run the script in test mode',
+                    action='store_true', default=False,
+                    dest='test')
+parser.add_argument('-u', '--upgrade',
+                    help='Upgrade installed 3rd party apps',
+                    action='store_true', default=False,
+                    dest='upgrade')
+parser.add_argument('-i', '--install',
+                    help='Install a package from 3rd party',
+                    action='store', default=False,
+                    dest='install')
 args = parser.parse_args()
 
 
 def print_new(output):
+    '''
+    Instead of normal print, print directly to stdout with a carriage return
+    '''
     sys.stdout.flush()
     sys.stdout.write('\r{}'.format(output))
 
@@ -74,7 +89,7 @@ def get_available_apps():
                                  'full_code': full_code}
             i += 1
             print_new(' [ ] Getting available versions ({}/{}){}'
-                      .format(i, len(apps), ' ' * 10))
+                      .format(i, len(apps) - 1, ' ' * 10))
     if args.verbose:
         print('{}: Got these available apps:\n{}'
               .format(inspect.stack()[0][3], out))
@@ -183,9 +198,9 @@ def main():
                               .format(app_available))
                         continue
                     else:
-                        do_install = str(input('I found app \'{}\', is this the '
-                                           'one you want? '
-                                           .format(app_available)))
+                        do_install = str(input('I found app \'{}\', is this '
+                                               'the one you want? '
+                                               .format(app_available)))
                         if do_install == 'no' or do_install == 'n':
                             print('')
                             if args.verbose:
