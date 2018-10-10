@@ -70,7 +70,7 @@ def get_available_apps():
             try:
                 req = requests.get(link, timeout=5)
             except(requests.exceptions.RequestException) as e:
-                print('Couldn\'t connect to solus-project.com:\n{}'.format(e))
+                print('Couldn\'t connect to getsol.us:\n{}'.format(e))
                 sys.exit()
             soup = bs(req.content, 'html5lib', from_encoding="utf-8")
             version = soup.find('history').find('update').find('version').text

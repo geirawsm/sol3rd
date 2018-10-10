@@ -5,7 +5,7 @@ Install 3rd party apps in Solus or upgrade them.
 
 ## Short description
 
-This script scrapes the apps on the [3rd party list](https://solus-project.com/articles/software/third-party/en/) on solus-project.com and can either check for available upgrades or install an app from that page.
+This script scrapes the apps on the [3rd party list](https://getsol.us/articles/software/third-party/en) on getsol.us and can either check for available upgrades or install an app from that page.
 
 &nbsp;
 
