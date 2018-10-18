@@ -30,5 +30,10 @@ setup(
         'bs4',
         'html5lib',
         'colorama'
-    ]
+    ],
+    package_data={
+        'sol3rd': [
+            '__version__.py'
+        ]
+    }
 )

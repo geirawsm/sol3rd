@@ -9,7 +9,7 @@ import os
 import sys
 import inspect
 from time import sleep
-from __version__ import version
+from sol3rd.__version__ import version
 from colorama import init, Fore, Style
 init(autoreset=True)
 
