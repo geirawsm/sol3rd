@@ -15,9 +15,9 @@ Before performing installation, it is recommended that you install dependencies 
 
 `sudo eopkg it python-beautifulsoup4 python-html5lib python-colorama python-webencodings python-requests python-idna python-certifi python-six python-urllib3`
 
-Then install sol3rd with `pip`:
+Then install sol3rd with `pip3`:
 
-`pip install sol3rd`
+`pip3 install sol3rd`
 
 &nbsp;
 
